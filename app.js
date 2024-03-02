@@ -3,10 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('./db/db');
 
 var indexRouter = require('./routes/index');
-var personajeRouter = require('./routes/personaje')
+var personajeRouter = require('./routes/personaje');
 
 var app = express();
 
@@ -19,7 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use('/', indexRouter);
 app.use('/personaje', personajeRouter);
@@ -37,7 +35,6 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
 });
 
 module.exports = app;

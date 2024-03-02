@@ -1,25 +1,26 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const Personaje = require('../models/personaje');
+const Personaje = require("../models/personaje");
 
-// Obtener la lista de personajes
-router.get('/', async (req, res) => {
+/* GET users listing. */
+router.get("/todos", async function (req, res, next) {
   try {
-    const personajes = await Personaje.find({}, 'id name image gender created');
-    res.render('personajes', { personajes });
+    const personajes = await Personaje.find({});
+    res.render("index", { personajes });
   } catch (error) {
-    res.status(500).send('Error al obtener la lista de personajes.');
+    res.status(500).send("Error al obtener la lista de personajes.");
   }
 });
 
-router.get('/:name', async (req, res) => {
-  const {name} = req.params;
+router.get("/:id", async function (req, res, next) {
+  const { id } = req.params;
   try {
-    const personajes = await Personaje.find({name:name}, 'id name gender created');
-    console.log(personajes);
-    res.render('personajes', {personajes});
-  } catch (error) {
-    res.status(500).send('Error al obtener la lista de personajes.');
+    let personaje = await Personaje.find({ id: id });
+    personaje = personaje[0];
+    // console.log(personaje);
+    res.render("personaje", { personaje });
+  } catch {
+    res.end();
   }
 });
 

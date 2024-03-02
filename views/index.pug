@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-    each personaje in personajes 
-      li 
-        a#a(href='/personaje') #{personaje.name}
+  .container
+    h1 Lista completa
+    ul
+      each personaje in personajes
+        li 
+          a(href=`/personaje/${personaje.id}`) #{personaje.name}

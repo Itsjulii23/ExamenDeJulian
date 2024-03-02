@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb+srv://usuario:12345678abc@cluster0.ulerm98.mongodb.net/rickandmorty?retryWrites=true&w=majority';
-// "mongodb://localhost/myDB"
+const uri = "mongodb+srv://usuario:12345678abc@cluster0.ulerm98.mongodb.net/rickandmorty?retryWrites=true&w=majority"
+
 mongoose.connect(uri, {});
 
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'Error de conexion'));
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log("Connected to MongoDB")
+});
 
-db.once('open', () => {
-    const dbName = db.name;
-    console.log(`Conectado a MongoDB con éxito ${dbName}`);
-})
+
